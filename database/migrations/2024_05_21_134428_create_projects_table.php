@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title', 150);
             $table->string('subtitle', 255)->nullable();
             $table->text('description');
-            $table->string('image', 255)->nullable();
-            $table->string('url_code', 255)->nullable();
-            $table->string('url_web', 255);
+            $table->string('image')->nullable();
+            $table->text('url_code');
+            $table->string('url_web')->nullable();
             $table->timestamps();
         });
     }
