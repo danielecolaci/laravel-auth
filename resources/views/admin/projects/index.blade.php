@@ -3,6 +3,9 @@
 @section('content')
     <section class="py-5">
         <div class="container">
+            <div class="mb-4">
+                <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Create New Project</a>
+            </div>
             <h4 class="text-muted">All Projects</h4>
             <div class="row">
                 @forelse ($projects as $project)
