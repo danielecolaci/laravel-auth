@@ -14,7 +14,8 @@
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $project->subtitle }}</h6>
                                 <p class="card-text">{{ Str::limit($project->description, 100) }}</p>
                                 <p class="card-text"><small class="text-muted">{{ $project->url_code }}</small></p>
-                                <a href="{{ $project->url_web }}" class="btn btn-primary btn-sm">View</a>
+                                <a href="{{ route('admin.projects.show', $project) }}"
+                                    class="btn btn-primary btn-sm">Show</a>
                                 <a href="#" class="btn btn-warning btn-sm">Edit</a>
                                 <a href="#" class="btn btn-danger btn-sm">Delete</a>
                             </div>
