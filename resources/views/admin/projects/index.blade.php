@@ -7,6 +7,9 @@
                 <a href="{{ route('admin.projects.create') }}" class="btn btn-success">Create New Project</a>
             </div>
             <h4 class="text-muted">All Projects</h4>
+
+            @include('partials.session-message')
+
             <div class="row">
                 @forelse ($projects as $project)
                     <div class="col-md-4 mb-4">

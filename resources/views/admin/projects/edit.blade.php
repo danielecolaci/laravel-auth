@@ -1,17 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-
     <div class="container py-5">
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
+        @include('partials.validation-message')
+        @include('partials.session-message')
 
         <form action="{{ route('admin.projects.update', $project) }}" method="post">
             @csrf
@@ -93,7 +86,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary mx-3">Back</a>
         </form>
     </div>
-
 @endsection
