@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -37,7 +38,11 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        //dd($validated);
+        if ($request->has('image')) {
+            $image_path = Storage::put('uploads', $validated['image']);
+            //dd($validated, $image_path);
+            $validated['image'] = $image_path;
+        }
         
         Project::create($validated);
 
@@ -66,6 +71,18 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $validated = $request->validated();
+
+        if ($request->has('image')) {
+
+            if ($post->image) {
+                Storage::delete($post->image);
+            }
+
+            $image_path = Storage::put('uploads', $validated['image']);
+            //dd($validated, $image_path);
+            $validated['image'] = $image_path;
+        }
+
         $project->update($validated);
         return redirect()->route('admin.projects.edit', $project)->with('message', "$project->title updated successfully");
     }
@@ -75,6 +92,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "$project->title deleted successfully");
     }

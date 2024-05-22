@@ -14,7 +14,15 @@
                 @forelse ($projects as $project)
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <img src="{{ $project->image }}" class="card-img-top img-fluid" alt="{{ $project->title }}">
+
+                            @if (Str::startsWith($project->image, 'https://'))
+                                <img loading="lazy" src="{{ $project->image }}" alt="{{ $project->title }}"
+                                    class="card-img-top img-fluid">
+                            @else
+                                <img loading="lazy" src="{{ asset('storage/' . $project->image) }}"
+                                    alt="{{ $project->title }}" class="card-img-top img-fluid">
+                            @endif
+
                             <div class="card-body">
                                 <h5 class="card-title">{{ $project->title }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $project->subtitle }}</h6>

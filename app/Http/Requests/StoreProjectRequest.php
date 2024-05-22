@@ -25,7 +25,7 @@ class StoreProjectRequest extends FormRequest
             'title' => 'required|string|max:150',
             'subtitle' => 'nullable|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:255',
             'url_code' => 'nullable|string|max:255',
             'url_web' => 'required|url|max:255',
         ];

@@ -5,7 +5,7 @@
 
         @include('partials.validation-message')
 
-        <form action="{{ route('admin.projects.store') }}" method="post">
+        <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -35,7 +35,7 @@
 
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control @error('image') is-invalid @enderror" name="image"
+                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
                     id="image" aria-describedby="imageHelper" placeholder="Enter image URL"
                     value="{{ old('image') }}" />
                 <small id="imageHelper" class="form-text text-muted">Enter the URL for the image of this project</small>

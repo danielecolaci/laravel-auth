@@ -6,7 +6,7 @@
         @include('partials.validation-message')
         @include('partials.session-message')
 
-        <form action="{{ route('admin.projects.update', $project) }}" method="post">
+        <form action="{{ route('admin.projects.update', $project) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -35,17 +35,25 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control @error('image') is-invalid @enderror" name="image"
-                    id="image" aria-describedby="imageHelper" placeholder="Enter image URL"
-                    value="{{ $project->image }}" />
-                <small id="imageHelper" class="form-text text-muted">Enter the URL for the image of this project</small>
-                @error('image')
-                    <div class="text-danger py-2">
-                        {{ $message }}
-                    </div>
-                @enderror
+
+            <div class="d-flex gap-2 mb-3">
+                @if (Str::startsWith($project->image, 'https://'))
+                    <img width="140" src="{{ $project->image }}" alt="{{ $project->title }}">
+                @else
+                    <img width="140" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+                @endif
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                        id="image" aria-describedby="imageHelper" placeholder="Enter image URL"
+                        value="{{ $project->image }}" />
+                    <small id="imageHelper" class="form-text text-muted">Enter the URL for the image of this project</small>
+                    @error('image')
+                        <div class="text-danger py-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
 
             <div class="mb-3">
@@ -53,7 +61,8 @@
                 <input type="text" class="form-control @error('url_code') is-invalid @enderror" name="url_code"
                     id="url_code" aria-describedby="urlCodeHelper" placeholder="Enter URL for code"
                     value="{{ $project->url_code }}" />
-                <small id="urlCodeHelper" class="form-text text-muted">Enter the URL for the code of this project</small>
+                <small id="urlCodeHelper" class="form-text text-muted">Enter the URL for the code of this
+                    project</small>
                 @error('url_code')
                     <div class="text-danger py-2">
                         {{ $message }}
